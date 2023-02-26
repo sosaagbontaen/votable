@@ -1,14 +1,16 @@
 <script>
+	import Modal from './Modal.svelte'
+
 	let newStudentName = "";
 	let newStudentHouse = "";
 	let newStudentConcentration = "";
+
 	let students = [
 		{ name: 'Sam', house: 'Quincy', concentration: 'Computer Science', id: 1},
 		{ name: 'Joseph', house: 'Eliot', concentration: 'History', id: 2},
 		{name: 'Evin', house: 'Mather', concentration: 'Econ', id: 3},
 		{ name: 'Andreas', house: 'Dunster', concentration: 'Computer Science', id: 4}
 	]
-	
 
 	const addStudent = (studentID) =>{
 		let newStudent =
@@ -24,13 +26,13 @@
 			students.push(newStudent);
 			students = students;	
 		}
-		
 	}
 	const deleteStudent = (id) =>{
 		students = students.filter((student) => student.id != id)
 	}
 </script>
 
+<Modal />
 <main>
 	{#if students.length != 1}
 		<h4>{students.length} students</h4>
