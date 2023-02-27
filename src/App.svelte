@@ -2,6 +2,7 @@
 	import Header from './components/Header.svelte'
 	import Footer from './components/Footer.svelte'
 	import Tabs from './shared/Tabs.svelte'
+	import CreatePollForm from './components/CreatePollForm.svelte'
 
 	// tabs
 	let items = ["Current Polls", "Add New Poll"];
@@ -9,7 +10,6 @@
 	const tabChange = (eventObject) => {
 		//Reset active item to whatever item is sent through event
 		activeItem = eventObject.detail;
-		console.table(items);
 	}
 </script>
 
@@ -19,6 +19,7 @@
 	{#if activeItem === items[0]}
 		<p>Active Item!</p>
 	{:else if activeItem === items[1]}
+	<CreatePollForm />
 		<p>New Poll Item!</p>
 	{/if}
 </main>
