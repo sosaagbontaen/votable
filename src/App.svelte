@@ -4,6 +4,7 @@
 	let newStudentName = "";
 	let newStudentHouse = "";
 	let newStudentConcentration = "";
+	let showModal = false;
 
 	let students = [
 		{ name: 'Sam', house: 'Quincy', concentration: 'Computer Science', id: 1},
@@ -30,10 +31,15 @@
 	const deleteStudent = (id) =>{
 		students = students.filter((student) => student.id != id)
 	}
+	const toggleModal = () =>{
+		showModal = !showModal;
+	}
 </script>
 
-<Modal />
+<Modal message="Made by Sam Osa!" showModal={showModal} on:click={toggleModal}/>
 <main>
+	<button on:click={toggleModal}>Credits</button>
+
 	{#if students.length != 1}
 		<h4>{students.length} students</h4>
 	{:else}
@@ -41,6 +47,7 @@
 	{/if}
 
 	
+
 	<input type="text" placeholder = "Name" bind:value={newStudentName}>
 	<input type="text" placeholder = "House" bind:value={newStudentHouse}>
 	<input type="text" placeholder = "Concentration" bind:value={newStudentConcentration}>
@@ -56,6 +63,7 @@
 		<p>There are no people to show...</p>
 	{/each}
 </main>
+<Modal />
 
 <style>
 	main {

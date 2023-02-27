@@ -1,11 +1,15 @@
 <script>
-let showModal = true
+    //Here, "Export" literally means that this message variable can be set outside this component
+    export let message;
+    export let showModal = false;
 </script>
 
 {#if showModal}
-<div class="backdrop">
+<!--Leave event undefined so it's forwarded back to the instance of Modal from App.svelte-->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="backdrop" on:click|self>
     <div class="modal">
-        <p>Lorem Ipsum</p>
+        <p>{message}</p>
     </div>
 </div>
 {/if}
