@@ -1,6 +1,7 @@
 <script>
 	import UserAuth from './components/UserAuth.svelte';
 	import Dashboard from './components/Dashboard.svelte';
+	import Calendar from './components/Calendar.svelte';
 	let pages = ["SignUp", "Login", "Dashboard"];
 	let currentPage = pages[0];
 	let activeUser;

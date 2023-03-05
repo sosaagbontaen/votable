@@ -1,4 +1,6 @@
 <script>
+  import Calendar from "./Calendar.svelte";
+
     export let onPageChange;
     export let onUserChange;
 
@@ -17,6 +19,7 @@
     <p>Signed in as : <b>{activeUser.name}</b></p>
     <br>
     <button on:click={logoutUser}>Logout</button>
+    <Calendar/>
 </main>
 
 <style>
