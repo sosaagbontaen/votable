@@ -1,10 +1,28 @@
 <script>
-	export let name;
-	import SignUp from './components/SignUp.svelte'
+	import SignUp from './components/SignUp.svelte';
+	import Login from './components/Login.svelte';
+	let pages = ["SignUp", "Login"];
+	let currentPage = pages[0];
+	let activeUser;
+
+	function updatePage(newPage){
+		currentPage = newPage;
+	}
+	function updateUser(newUser){
+		activeUser = newUser;
+	}
 </script>
 
 <main>
-	<SignUp/>
+	{#if currentPage == pages[0]}
+		<SignUp onPageChange={updatePage} onUserChange={updateUser}/>
+	{:else if currentPage == pages[1]}
+		<Login onPageChange={updatePage} onUserChange={updateUser}/>
+	{/if}
+	{#if activeUser}
+		Signed in as : {activeUser.name}
+	{/if}
+	
 </main>
 
 <style>

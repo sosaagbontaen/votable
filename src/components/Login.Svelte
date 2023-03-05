@@ -8,31 +8,31 @@
     }
     
     //Username Variables
-    let newUserName = "";
+    let existingUserName = "";
     let errorUserBool = false;
     let errorUserMessage = ""
 
     //Password Variables
-    let newPassword = "";
+    let existingPassword = "";
     let errorPasswordBool = false;
     let errorPasswordMessage = ""
 
-    function toLoginPage(){
-        onPageChange("Login")
+    function toSignUpPage(){
+        onPageChange("SignUp")
     }
     function createUser() {
         //Username Validation
-        if(newUserName.trim() === ''){
+        if(existingUserName.trim() === ''){
             errorUserMessage = "Cannot have empty username"
             errorUserBool = true;
         }
-        else if(newUserName.startsWith(" ")){
+        else if(existingUserName.startsWith(" ")){
             errorUserMessage = "Username cannot start with spaces"
             errorUserBool = true;
         }
-        else if(newUserName in allUsers)
+        else if(!(existingUserName in allUsers))
         {
-            errorUserMessage = "Username already exists"
+            errorUserMessage = "User not found"
             errorUserBool = true;
         }
         else{
@@ -40,7 +40,7 @@
         }
 
         //Password Validation
-        if(newPassword.length < 1){
+        if(existingPassword.length < 1){
             errorPasswordBool = true;
             errorPasswordMessage = "Cannot have empty password"
         }
@@ -49,16 +49,16 @@
         }
 
         if(errorUserBool == false && errorPasswordBool == false){
-            let newUser = {
-                name: newUserName,
-                password: newPassword
+            if(existingPassword === allUsers[existingUserName].password){
+                errorPasswordBool = false;
+                //Update active user in storage
+                onUserChange(allUsers[existingUserName]);
+                localStorage.setItem("activeUser", JSON.stringify(allUsers[existingUserName]));
             }
-            //Update all users dict in storage
-            allUsers[newUserName] = newUser;
-            localStorage.setItem("allUsers", JSON.stringify(allUsers));
-            //Update active user in storage
-            onUserChange(newUser);
-            localStorage.setItem("activeUser", JSON.stringify(newUser));
+            else{
+                errorPasswordBool = true;
+                errorPasswordMessage = "Incorrect password" 
+            }
         }
 	}
 </script>
@@ -71,23 +71,23 @@
     <br><br>
 
     <label for="username">Username:</label>
-    <input type="text" placeholder = "Name" id="username" name="username" bind:value={newUserName}>
+    <input type="text" placeholder = "Name" id="username" name="username" bind:value={existingUserName}>
     {#if errorUserBool}
         <br>
         <error>{errorUserMessage}</error>
     {/if}
     <label for="password">Password:</label>
-    <input type="password" placeholder = "Password" id="password" name="password" bind:value={newPassword}>
+    <input type="password" placeholder = "Password" id="password" name="password" bind:value={existingPassword}>
     {#if errorPasswordBool}
         <br>
         <error>{errorPasswordMessage}</error>
     {/if}
     <br>
-    <button on:click={createUser}>Sign Up</button>
+    <button on:click={createUser}>Login</button>
     <br>
-    <span>Already have an account?</span>
+    <span>New to Votable?</span>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <span on:click={() => toLoginPage()} id ="login">Login</span>
+    <span on:click={() => toSignUpPage()} id ="signup">Sign Up</span>
     <br>
 
 </main>
@@ -98,8 +98,8 @@
     h1{
         margin:10px;
     }
-    #login{
-        color: green;
+    #signup{
+        color: rgb(206, 88, 8);
         font-weight: bold;
         text-decoration: underline;
         cursor: pointer;
