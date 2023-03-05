@@ -4,6 +4,9 @@
 	let pages = ["SignUp", "Login"];
 	let currentPage = pages[0];
 	let activeUser;
+	if (localStorage.getItem("activeUser") != null) {
+        activeUser = JSON.parse(localStorage.getItem("activeUser"));
+    }
 
 	function updatePage(newPage){
 		currentPage = newPage;
