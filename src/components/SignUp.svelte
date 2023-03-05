@@ -19,6 +19,7 @@
 
     function toLoginPage(){
         onPageChange("Login")
+        localStorage.setItem("currentPage", "Login");
     }
     function createUser() {
         //Username Validation
@@ -59,6 +60,8 @@
             //Update active user in storage
             onUserChange(newUser);
             localStorage.setItem("activeUser", JSON.stringify(newUser));
+            onPageChange("Dashboard");
+            localStorage.setItem("currentPage", "Dashboard");
         }
 	}
 </script>

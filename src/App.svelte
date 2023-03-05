@@ -1,11 +1,15 @@
 <script>
 	import SignUp from './components/SignUp.svelte';
 	import Login from './components/Login.svelte';
-	let pages = ["SignUp", "Login"];
+	import Dashboard from './components/Dashboard.svelte';
+	let pages = ["SignUp", "Login", "Dashboard"];
 	let currentPage = pages[0];
 	let activeUser;
 	if (localStorage.getItem("activeUser") != null) {
         activeUser = JSON.parse(localStorage.getItem("activeUser"));
+    }
+	if (localStorage.getItem("currentPage") != null) {
+        currentPage = localStorage.getItem("currentPage");
     }
 
 	function updatePage(newPage){
@@ -21,6 +25,8 @@
 		<SignUp onPageChange={updatePage} onUserChange={updateUser}/>
 	{:else if currentPage == pages[1]}
 		<Login onPageChange={updatePage} onUserChange={updateUser}/>
+	{:else if currentPage == pages[2]}
+		<Dashboard onPageChange={updatePage} onUserChange={updateUser}/>
 	{/if}
 	{#if activeUser}
 		Signed in as : {activeUser.name}

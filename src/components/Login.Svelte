@@ -18,7 +18,8 @@
     let errorPasswordMessage = ""
 
     function toSignUpPage(){
-        onPageChange("SignUp")
+        onPageChange("SignUp");
+        localStorage.setItem("currentPage", "SignUp");
     }
     function createUser() {
         //Username Validation
@@ -54,6 +55,8 @@
                 //Update active user in storage
                 onUserChange(allUsers[existingUserName]);
                 localStorage.setItem("activeUser", JSON.stringify(allUsers[existingUserName]));
+                onPageChange("Dashboard");
+                localStorage.setItem("currentPage", "Dashboard");
             }
             else{
                 errorPasswordBool = true;
