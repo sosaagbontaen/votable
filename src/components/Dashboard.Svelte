@@ -18,14 +18,24 @@
   let activeUser = JSON.parse(localStorage.getItem("activeUser"));
 
   function logoutUser() {
+    let endTimeString = "User signed out at: " + d;
+    console.log(endTimeString);
+    
+    //Fetch active user (and allUsers) and update endTime
+    let temp_user = JSON.parse(localStorage.getItem("activeUser"));
+    let temp_allUsers = JSON.parse(localStorage.getItem("allUsers"));
+    temp_user.endTime = endTimeString;
+    
+    //Update all users dict in storage
+    temp_allUsers[temp_user.name] = temp_user;
+    localStorage.setItem("allUsers", JSON.stringify(temp_allUsers));
+    localStorage.setItem("activeUser", JSON.stringify(temp_user));
+
+
     //Update active user in storage
     onUserChange(null);
     localStorage.setItem("activeUser", null);
     onPageChange("SignUp");
-
-    // Console.log()
-    console.log("User signed out at: " + d);
-    //
 
     localStorage.setItem("currentPage", "SignUp");
   }

@@ -43,7 +43,7 @@
   {#if JSON.parse(localStorage.getItem("activeUser")).selection != null}
     {@html savedSnapShot}
   {:else}
-    <div class="app" id = "snapShot">
+    <div class="app" id="snapShot">
       <div class="container">
         <Selecto
           dragContainer={".elements"}

@@ -59,12 +59,19 @@
     }
 
     if (errorUserBool == false && errorPasswordBool == false) {
+        
       if (currentPage == "SignUp") {
+        let startTimeString = "User signed in at: " + d;
+        console.log(startTimeString);
+
         let newUser = {
           name: inputUserName,
           password: inputPassword,
           selection: savedSelection,
+          startTime: startTimeString,
+          endTime: ""
         };
+        
         //Update all users dict in storage
         allUsers[inputUserName] = newUser;
         localStorage.setItem("allUsers", JSON.stringify(allUsers));
@@ -72,10 +79,6 @@
         onUserChange(newUser);
         localStorage.setItem("activeUser", JSON.stringify(newUser));
         onPageChange("Dashboard");
-
-        // Console.log()
-        console.log("User signed in at: " + d);
-        //
 
         localStorage.setItem("currentPage", "Dashboard");
       }
@@ -89,10 +92,6 @@
             JSON.stringify(allUsers[inputUserName])
           );
           onPageChange("Dashboard");
-
-          // Console.log()
-          console.log("User logged in at: " + d);
-          //
 
           localStorage.setItem("currentPage", "Dashboard");
         } else {
