@@ -1,6 +1,5 @@
 <script>
-	import SignUp from './components/SignUp.svelte';
-	import Login from './components/Login.svelte';
+	import UserAuth from './components/UserAuth.svelte';
 	import Dashboard from './components/Dashboard.svelte';
 	let pages = ["SignUp", "Login", "Dashboard"];
 	let currentPage = pages[0];
@@ -22,15 +21,10 @@
 
 <main>
 	<div id="backdrop">
-		{#if currentPage == pages[0]}
-			<SignUp onPageChange={updatePage} onUserChange={updateUser}/>
-		{:else if currentPage == pages[1]}
-			<Login onPageChange={updatePage} onUserChange={updateUser}/>
+		{#if currentPage == pages[0] || currentPage == pages[1]}
+			<UserAuth onPageChange={updatePage} onUserChange={updateUser}/>
 		{:else if currentPage == pages[2]}
 			<Dashboard onPageChange={updatePage} onUserChange={updateUser}/>
-		{/if}
-		{#if activeUser}
-			Signed in as : {activeUser.name}
 		{/if}
 	</div>
 </main>

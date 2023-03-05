@@ -8,32 +8,45 @@
     }
     
     //Username Variables
-    let newUserName = "";
+    let inputUserName = "";
     let errorUserBool = false;
     let errorUserMessage = ""
 
     //Password Variables
-    let newPassword = "";
+    let inputPassword = "";
     let errorPasswordBool = false;
     let errorPasswordMessage = ""
 
+    let currentPage = localStorage.getItem("currentPage");
+
     function toLoginPage(){
+        currentPage = "Login";
         onPageChange("Login")
         localStorage.setItem("currentPage", "Login");
     }
-    function createUser() {
+    function toSignupPage(){
+        currentPage = "SignUp";
+        onPageChange("SignUp")
+        localStorage.setItem("currentPage", "SignUp");
+    }
+    function activateUser() {
         //Username Validation
-        if(newUserName.trim() === ''){
+        if(inputUserName.trim() === ''){
             errorUserMessage = "Cannot have empty username"
             errorUserBool = true;
         }
-        else if(newUserName.startsWith(" ")){
+        else if(inputUserName.startsWith(" ")){
             errorUserMessage = "Username cannot start with spaces"
             errorUserBool = true;
         }
-        else if(newUserName in allUsers)
+        else if(inputUserName in allUsers && currentPage == "SignUp")
         {
             errorUserMessage = "Username already exists"
+            errorUserBool = true;
+        }
+        else if(!(inputUserName in allUsers) && currentPage == "Login")
+        {
+            errorUserMessage = "User not found"
             errorUserBool = true;
         }
         else{
@@ -41,7 +54,7 @@
         }
 
         //Password Validation
-        if(newPassword.length < 1){
+        if(inputPassword.length < 1){
             errorPasswordBool = true;
             errorPasswordMessage = "Cannot have empty password"
         }
@@ -50,18 +63,35 @@
         }
 
         if(errorUserBool == false && errorPasswordBool == false){
-            let newUser = {
-                name: newUserName,
-                password: newPassword
+            if (currentPage == "SignUp"){
+                let newUser = {
+                    name: inputUserName,
+                    password: inputPassword
+                }
+                //Update all users dict in storage
+                allUsers[inputUserName] = newUser;
+                localStorage.setItem("allUsers", JSON.stringify(allUsers));
+                //Update active user in storage
+                onUserChange(newUser);
+                localStorage.setItem("activeUser", JSON.stringify(newUser));
+                onPageChange("Dashboard");
+                localStorage.setItem("currentPage", "Dashboard");
             }
-            //Update all users dict in storage
-            allUsers[newUserName] = newUser;
-            localStorage.setItem("allUsers", JSON.stringify(allUsers));
-            //Update active user in storage
-            onUserChange(newUser);
-            localStorage.setItem("activeUser", JSON.stringify(newUser));
-            onPageChange("Dashboard");
-            localStorage.setItem("currentPage", "Dashboard");
+            if (currentPage == "Login"){
+                if(inputPassword === allUsers[inputUserName].password){
+                    errorPasswordBool = false;
+                    //Update active user in storage
+                    onUserChange(allUsers[inputUserName]);
+                    localStorage.setItem("activeUser", JSON.stringify(allUsers[inputUserName]));
+                    onPageChange("Dashboard");
+                    localStorage.setItem("currentPage", "Dashboard");
+                }
+                    else{
+                        errorPasswordBool = true;
+                        errorPasswordMessage = "Incorrect password";
+                        return;
+                }
+            }
         }
 	}
 </script>
@@ -77,23 +107,35 @@
             {/each}
         </div>
         <label class="in-backdrop" for="username" id="username-label">Username:</label>
-        <input type="text" placeholder = "Name" id="username" name="username" bind:value={newUserName}>
+        <input type="text" placeholder = "Name" id="username" name="username" bind:value={inputUserName}>
         {#if errorUserBool}
             <br>
             <error>{errorUserMessage}</error>
         {/if}
         <label class="in-backdrop"for="password">Password:</label>
-        <input type="password" placeholder = "Password" id="password" name="password" bind:value={newPassword}>
+        <input type="password" placeholder = "Password" id="password" name="password" bind:value={inputPassword}>
         {#if errorPasswordBool}
             <br>
             <error>{errorPasswordMessage}</error>
         {/if}
         <br>
-        <button id="actionButton" on:click={createUser}>Sign Up</button>
+
+        {#if currentPage == "SignUp"}
+            <button id="actionButton" on:click={activateUser}>Sign Up</button>
+        {:else if currentPage == "Login"}  
+            <button id="actionButton" on:click={activateUser}>Login</button>
+        {/if}
         <br>
+
+        {#if currentPage == "SignUp"}
         <span id="bottom-text">Already have an account?</span>
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <span on:click={() => toLoginPage()} id ="login">Login</span>
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <span on:click={() => toLoginPage()} id ="switchButton">Login</span>
+        {:else if currentPage == "Login"}  
+            <span id="bottom-text">New to Votable?</span>
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <span on:click={() => toSignupPage()} id ="switchButton">Sign Up</span>
+        {/if}
         <br>
         <br>
     </div>
@@ -136,8 +178,8 @@
     #username{
         margin-bottom: 20px;
     }
-    #login{
-        color: green;
+    #switchButton{
+        color: rgb(41, 255, 41);
         font-weight: bold;
         text-decoration: underline;
         cursor: pointer;
