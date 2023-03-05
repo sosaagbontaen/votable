@@ -10,6 +10,10 @@
 	if (localStorage.getItem("currentPage") != null) {
         currentPage = localStorage.getItem("currentPage");
     }
+	else{
+        localStorage.setItem("currentPage", "SignUp");
+		currentPage = "SignUp";
+	}
 
 	function updatePage(newPage){
 		currentPage = newPage;

@@ -8,8 +8,8 @@
         //Update active user in storage
         onUserChange(null);
         localStorage.setItem("activeUser", null);
-        onPageChange("Login");
-        localStorage.setItem("currentPage", "Login");
+        onPageChange("SignUp");
+        localStorage.setItem("currentPage", "SignUp");
 	}
 </script>
 
