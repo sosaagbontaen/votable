@@ -21,17 +21,18 @@
 </script>
 
 <main>
-	{#if currentPage == pages[0]}
-		<SignUp onPageChange={updatePage} onUserChange={updateUser}/>
-	{:else if currentPage == pages[1]}
-		<Login onPageChange={updatePage} onUserChange={updateUser}/>
-	{:else if currentPage == pages[2]}
-		<Dashboard onPageChange={updatePage} onUserChange={updateUser}/>
-	{/if}
-	{#if activeUser}
-		Signed in as : {activeUser.name}
-	{/if}
-	
+	<div id="backdrop">
+		{#if currentPage == pages[0]}
+			<SignUp onPageChange={updatePage} onUserChange={updateUser}/>
+		{:else if currentPage == pages[1]}
+			<Login onPageChange={updatePage} onUserChange={updateUser}/>
+		{:else if currentPage == pages[2]}
+			<Dashboard onPageChange={updatePage} onUserChange={updateUser}/>
+		{/if}
+		{#if activeUser}
+			Signed in as : {activeUser.name}
+		{/if}
+	</div>
 </main>
 
 <style>
@@ -41,7 +42,6 @@
 		max-width: 240px;
 		margin: 0 auto;
 	}
-
 	h1 {
 		color: #ff3e00;
 		text-transform: uppercase;
