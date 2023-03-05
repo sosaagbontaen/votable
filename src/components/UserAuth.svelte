@@ -17,6 +17,8 @@
     let errorPasswordBool = false;
     let errorPasswordMessage = ""
 
+    let savedSelection = null;
+
     let currentPage = localStorage.getItem("currentPage");
 
     function toLoginPage(){
@@ -66,7 +68,8 @@
             if (currentPage == "SignUp"){
                 let newUser = {
                     name: inputUserName,
-                    password: inputPassword
+                    password: inputPassword,
+                    selection: savedSelection
                 }
                 //Update all users dict in storage
                 allUsers[inputUserName] = newUser;
