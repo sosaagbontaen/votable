@@ -208,7 +208,6 @@
   .app {
     position: relative;
     min-height: 1%;
-    padding: 10px 150px;
     text-align: center;
     display: flex;
     align-items: center;
@@ -219,12 +218,12 @@
     background-color: rgb(95, 156, 95);
     max-width: 2000px;
     align-items: left;
-    margin: 0px 130px;
+    margin: auto;
   }
   .container-two {
     background-color: rgb(95, 156, 95);
     max-width: 710px;
-    margin: 0px 334px;
+    margin: auto;
   }
   .header {
     max-width: 2000px;
