@@ -8,7 +8,7 @@
     days.push(i);
   }
   function saveSelection() {
-    const selectionSnapshot = document.getElementById('snapShot');
+    const selectionSnapshot = document.getElementById("snapShot");
     const htmlStringOfSnapshot = selectionSnapshot.innerHTML;
     //retrieve current user
     let temp_user_var = JSON.parse(localStorage.getItem("activeUser"));
@@ -24,7 +24,6 @@
 
     //update all users
     localStorage.setItem("allUsers", JSON.stringify(temp_all_users_var));
-    
   }
   let savedSnapShot = JSON.parse(localStorage.getItem("activeUser")).selection;
 </script>
@@ -37,156 +36,162 @@
   >
   <br />
   <strong style="color:white"> Timezone set by organizer: EST (GMT-5)</strong>
+  <br />
+  <p style="color:white">
+    <b><u>Select</u></b> and drag pointer for blocks of time or
+    <b><u>click</u></b> for individual timeblocks.
+  </p>
+  <br />
 </div>
-<br>
-<button on:click={()=>saveSelection()}>Save Changes</button>
-  {#if JSON.parse(localStorage.getItem("activeUser")).selection != null}
-    {@html savedSnapShot}
-  {:else}
-    <div class="app" id="snapShot">
-      <div class="container">
-        <Selecto
-          dragContainer={".elements"}
-          selectableTargets={[".selecto-area .block"]}
-          hitRate={0}
-          selectByClick={true}
-          selectFromInside={false}
-          continueSelect={true}
-          ratio={0}
-          on:select={({ detail: e }) => {
-            e.added.forEach((el) => {
-              el.classList.add("selected");
-            });
-            e.removed.forEach((el) => {
-              el.classList.remove("selected");
-            });
-          }}
-        />
+<br />
+<button on:click={() => saveSelection()}>Save Changes</button>
+{#if JSON.parse(localStorage.getItem("activeUser")).selection != null}
+  {@html savedSnapShot}
+{:else}
+  <div class="app" id="snapShot">
+    <div class="container">
+      <Selecto
+        dragContainer={".elements"}
+        selectableTargets={[".selecto-area .block"]}
+        hitRate={0}
+        selectByClick={true}
+        selectFromInside={false}
+        continueSelect={true}
+        ratio={0}
+        on:select={({ detail: e }) => {
+          e.added.forEach((el) => {
+            el.classList.add("selected");
+          });
+          e.removed.forEach((el) => {
+            el.classList.remove("selected");
+          });
+        }}
+      />
 
-        <div class="float-sidebar">
-          <div class="sidebar-element">10:00am</div>
-          <div class="sidebar-element">10:30am</div>
-          <div class="sidebar-element">11:00am</div>
-          <div class="sidebar-element">11:30am</div>
-          <div class="sidebar-element">12:00pm</div>
-          <div class="sidebar-element">12:30pm</div>
-          <div class="sidebar-element">1:00pm</div>
-          <div class="sidebar-element">1:30pm</div>
-          <div class="sidebar-element">2:00pm</div>
-          <div class="sidebar-element">2:30pm</div>
-          <div class="sidebar-element">3:00pm</div>
-          <div class="sidebar-element">3:30pm</div>
-          <div class="sidebar-element">4:00pm</div>
-          <div class="sidebar-element">4:30pm</div>
-          <div class="sidebar-element">5:00pm</div>
-          <div class="sidebar-element">5:30pm</div>
-          <div class="sidebar-element">6:00pm</div>
-          <div class="sidebar-element">6:30pm</div>
-          <div class="sidebar-element">7:00pm</div>
-          <div class="sidebar-element">7:30pm</div>
-          <div class="sidebar-element">8:00pm</div>
-        </div>
-        <div class="float-header">
-          <div class="header">
-            <div class="header-element">Sun</div>
-            <div class="header-element">Mon</div>
-            <div class="header-element">Tue</div>
-            <div class="header-element">Wed</div>
-            <div class="header-element">Thu</div>
-            <div class="header-element">Fri</div>
-            <div class="header-element">Sat</div>
-          </div>
-          <div class="elements selecto-area" id="selecto1">
-            {#each days as day}
-              <div class="header" />
-            {/each}
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            {#each days as day}
-              <div class="header" />
-            {/each}
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-            <br />
-            {#each timeblocks as block}
-              <div class="block" />
-            {/each}
-          </div>
-        </div>
-        <div class="empty elements" />
+      <div class="float-sidebar">
+        <div class="sidebar-element">10:00am</div>
+        <div class="sidebar-element">10:30am</div>
+        <div class="sidebar-element">11:00am</div>
+        <div class="sidebar-element">11:30am</div>
+        <div class="sidebar-element">12:00pm</div>
+        <div class="sidebar-element">12:30pm</div>
+        <div class="sidebar-element">1:00pm</div>
+        <div class="sidebar-element">1:30pm</div>
+        <div class="sidebar-element">2:00pm</div>
+        <div class="sidebar-element">2:30pm</div>
+        <div class="sidebar-element">3:00pm</div>
+        <div class="sidebar-element">3:30pm</div>
+        <div class="sidebar-element">4:00pm</div>
+        <div class="sidebar-element">4:30pm</div>
+        <div class="sidebar-element">5:00pm</div>
+        <div class="sidebar-element">5:30pm</div>
+        <div class="sidebar-element">6:00pm</div>
+        <div class="sidebar-element">6:30pm</div>
+        <div class="sidebar-element">7:00pm</div>
+        <div class="sidebar-element">7:30pm</div>
+        <div class="sidebar-element">8:00pm</div>
       </div>
+      <div class="float-header">
+        <div class="header">
+          <div class="header-element">Sun</div>
+          <div class="header-element">Mon</div>
+          <div class="header-element">Tue</div>
+          <div class="header-element">Wed</div>
+          <div class="header-element">Thu</div>
+          <div class="header-element">Fri</div>
+          <div class="header-element">Sat</div>
+        </div>
+        <div class="elements selecto-area" id="selecto1">
+          {#each days as day}
+            <div class="header" />
+          {/each}
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          {#each days as day}
+            <div class="header" />
+          {/each}
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+          <br />
+          {#each timeblocks as block}
+            <div class="block" />
+          {/each}
+        </div>
+      </div>
+      <div class="empty elements" />
     </div>
-  {/if}
+  </div>
+{/if}
 
 <style>
   html,
@@ -219,7 +224,7 @@
   .container-two {
     background-color: rgb(95, 156, 95);
     max-width: 710px;
-    margin: 0px 574px;
+    margin: 0px 334px;
   }
   .header {
     max-width: 2000px;
@@ -260,6 +265,7 @@
     margin: 2px;
     background: #eee;
     --color: rgb(196, 251, 67);
+    cursor: pointer;
   }
   h1,
   .description {
@@ -291,6 +297,7 @@
   }
   .selecto-area {
     padding: 30px;
+    cursor: crosshair;
   }
   #selecto1 .block {
     transition: all ease 0.2s;
