@@ -3,6 +3,8 @@
   //import Selecto from "svelte-selecto/src/svelte-selecto/Selecto.svelte";
   const timeblocks = [];
   const days = [];
+  
+  // SVELTE CONCEPT #1: CONTROL FLOW
   for (let i = 0; i < 7; ++i) {
     timeblocks.push(i);
     days.push(i);
@@ -23,6 +25,7 @@
     temp_all_users_var[temp_user_var.name] = temp_user_var;
 
     //update all users
+    // SVELTE CONCEPT #3: PROPS/PARAMETERS
     localStorage.setItem("allUsers", JSON.stringify(temp_all_users_var));
   }
   let savedSnapShot = JSON.parse(localStorage.getItem("activeUser")).selection;
@@ -50,6 +53,8 @@
 {:else}
   <div class="app" id="snapShot">
     <div class="container">
+      
+      <!-- SVELTE CONCEPT #4: REUSABLE COMPONENTS -->
       <Selecto
         dragContainer={".elements"}
         selectableTargets={[".selecto-area .block"]}
@@ -193,6 +198,7 @@
   </div>
 {/if}
 
+<!-- SVELTE CONCEPT #5: STYLING -->
 <style>
   html,
   body,
