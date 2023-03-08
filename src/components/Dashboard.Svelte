@@ -6,7 +6,8 @@
   export let onUserChange;
 
   let savedSelection = null;
-
+  
+  // SVELTE CONCEPT #1: CONTROL FLOW
   if (localStorage.getItem("activeUser").selection != null) {
     savedSelection = JSON.parse(localStorage.getItem("activeUser").selection);
   }
@@ -31,12 +32,13 @@
     localStorage.setItem("allUsers", JSON.stringify(temp_allUsers));
     localStorage.setItem("activeUser", JSON.stringify(temp_user));
 
-
     //Update active user in storage
+    // SVELTE CONCEPT #2: REACTIVE VALUES
     onUserChange(null);
     localStorage.setItem("activeUser", null);
     onPageChange("SignUp");
-
+    
+    // SVELTE CONCEPT #3: PROPS/PARAMETERS
     localStorage.setItem("currentPage", "SignUp");
   }
 </script>
@@ -45,9 +47,12 @@
   <p>Signed in as : <b>{activeUser.name}</b></p>
   <br />
   <button on:click={logoutUser}>Logout</button>
+
+  <!--   SVELTE CONCEPT #4: REUSABLE COMPONENTS -->
   <Calendar />
 </main>
 
+<!-- SVELTE CONCEPT #5: STYLING -->
 <style>
   p {
     color: white;
