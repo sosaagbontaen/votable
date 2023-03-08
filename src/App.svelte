@@ -5,6 +5,8 @@
   let pages = ["SignUp", "Login", "Dashboard"];
   let currentPage = pages[0];
   let activeUser;
+  
+  // SVELTE CONCEPT #1: CONTROL FLOW
   if (localStorage.getItem("activeUser") != null) {
     activeUser = JSON.parse(localStorage.getItem("activeUser"));
   }
@@ -14,7 +16,8 @@
     localStorage.setItem("currentPage", "SignUp");
     currentPage = "SignUp";
   }
-
+  
+  // SVELTE CONCEPT #3: PROPS/PARAMETERS
   function updatePage(newPage) {
     currentPage = newPage;
   }
@@ -26,13 +29,18 @@
 <main>
   <div id="backdrop">
     {#if currentPage == pages[0] || currentPage == pages[1]}
+      
+      <!-- SVELTE CONCEPT #2: REACTIVE VALUES -->
       <UserAuth onPageChange={updatePage} onUserChange={updateUser} />
     {:else if currentPage == pages[2]}
+     
+      <!-- SVELTE CONCEPT #4: REUSABLE COMPONENTS -->
       <Dashboard onPageChange={updatePage} onUserChange={updateUser} />
     {/if}
   </div>
 </main>
 
+<!-- SVELTE CONCEPT #5: STYLING -->
 <style>
   main {
     text-align: center;
