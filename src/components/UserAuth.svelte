@@ -4,6 +4,8 @@
   export let onUserChange;
 
   let allUsers = {};
+  
+  // SVELTE CONCEPT #1: CONTROL FLOW
   if (localStorage.getItem("allUsers") != null) {
     allUsers = JSON.parse(localStorage.getItem("allUsers"));
   }
@@ -77,6 +79,8 @@
         localStorage.setItem("allUsers", JSON.stringify(allUsers));
         //Update active user in storage
         onUserChange(newUser);
+        
+        // SVELTE CONCEPT #3: PROPS/PARAMETERS
         localStorage.setItem("activeUser", JSON.stringify(newUser));
         onPageChange("Dashboard");
 
@@ -91,6 +95,8 @@
             "activeUser",
             JSON.stringify(allUsers[inputUserName])
           );
+          
+          // SVELTE CONCEPT #2: REACTIVE VALUES
           onPageChange("Dashboard");
 
           localStorage.setItem("currentPage", "Dashboard");
@@ -170,6 +176,7 @@
   </div>
 </main>
 
+<!-- SVELTE CONCEPT #5: STYLING -->
 <style>
   #logo {
     width: 120px;
